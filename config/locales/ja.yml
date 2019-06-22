@@ -1,0 +1,57 @@
+ja:
+  scaffold:
+    show: 詳細
+    edit: 編集
+    destroy: 削除
+    new: 新規登録画面
+    back: 一覧へ戻る
+    confirm: 本当によろしいですか?
+  activerecord:
+    models:
+      book: 書籍
+      report: 日報
+      comment: コメント
+    attributes:
+      report:
+        title: 日報タイトル
+        memo: 内容
+        updated_at: 更新日
+      user:
+        username: ユーザー名
+        image: 画像
+      book:
+        title: タイトル
+        memo: メモ
+        author: 著書
+        picture: 画像
+  reports:
+    index:
+      Reports: 日報一覧
+    new:
+      New Report: 新規日報登録画面
+    edit:
+      Editing Report: 日報編集画面
+    create:
+      created: 無事登録されました。
+    update:
+      updated: 無事更新されました。
+    destroy:
+      destroyed: 無事削除されました。
+  users:
+    registrations:
+      new:
+        sign_up: 新規アカウント登録
+  books:
+    index:
+      Books: 書籍一覧
+      Reports: 日報一覧
+    edit:
+      Editing Book: 書籍編集画面
+    new:
+      New Book: 新規書籍登録画面
+  layouts:
+    application:
+      Logged in as:: 'ログインユーザー:'
+      Edit Profile: プロフィール編集
+      Logout: ログアウト
+
