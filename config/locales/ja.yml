@@ -24,6 +24,9 @@ ja:
         memo: メモ
         author: 著書
         picture: 画像
+      comment:
+        title: コメント題名
+        body: コメント
   reports:
     index:
       Reports: 日報一覧
@@ -54,4 +57,10 @@ ja:
       Logged in as:: 'ログインユーザー:'
       Edit Profile: プロフィール編集
       Logout: ログアウト
+  comments:
+    index:
+      New Comment: 新規コメント登録 
+      Comments: コメント一覧
+    edit:
+      Editing Comment: コメント編集
 

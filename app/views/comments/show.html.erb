@@ -1,0 +1,14 @@
+
+<p>
+  <strong><%= t('activerecord.attributes.comment.title') %>:</strong>
+  <%= @comment.title %>
+</p>
+
+<p>
+  <strong><%= t('activerecord.attributes.comment.body') %>:</strong>
+  <%= @comment.body %>
+</p>
+
+<%= link_to t('scaffold.edit'), [:edit, @commentable, @comment] %> |
+<%= link_to t('scaffold.back'), [@commentable, :comments] %>
+

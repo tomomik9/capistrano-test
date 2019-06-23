@@ -10,5 +10,9 @@
   <%= @report.memo %>
 </p>
 
+<%= link_to t('comments.index.New Comment'), [:new, @report, :comment] %>
+<%= link_to t('comments.index.Comments'), [@report, :comments] %>
+<%= render @report.comments %>
+
 <%= link_to t('scaffold.edit'), edit_report_path(@report) %> |
 <%= link_to t('scaffold.back'), reports_path %>

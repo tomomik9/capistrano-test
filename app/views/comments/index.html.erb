@@ -1,0 +1,29 @@
+
+<h1><%= t('.Comments') %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.comment.title') %></th>
+      <th><%= t('activerecord.attributes.comment.body') %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.title %></td>        
+        <td><%= comment.body %></td>
+        <td><%= link_to t('scaffold.show'), [@commentable, comment] %></td>
+        <td><%= link_to t('scaffold.edit'), [:edit, @commentable, comment] %></td>
+        <td><%= link_to t('scaffold.destroy'), [@commentable, comment], method: :delete, data: { confirm: t('scaffold.confirm') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to t('.New Comment'), [:new, @commentable, :comment] %>
+<%= link_to t('scaffold.back'), @commentable %>
