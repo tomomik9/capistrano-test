@@ -1,24 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+日報と書籍の情報を登録するアプリです。
 
-Things you may want to cover:
+使用している主なgem
+* kaminari
+* i18n
+* devise
+* omniauth
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+機能
+* 書籍情報の投稿機能
+* 日報の投稿機能
+* ユーザーのフォロー機能
+* コメント投稿機能(ポリモーフィック関係を実装)
