@@ -39,3 +39,16 @@ en:
       updated: Successfully updated.
     destroy:
       destroyed: Successfully destroyed.
+  layouts:
+    application:
+      following: following 
+      followers: followers
+  flash:
+    follow:
+      notice: Successfully followed.
+    unfollow:
+      notice: Successfully unfollowed.
+  users:
+    show:
+      Follow: Follow
+      Unfollow: Unfollow

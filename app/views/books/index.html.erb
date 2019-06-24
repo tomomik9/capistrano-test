@@ -26,8 +26,9 @@
     <% end %>
   </tbody>
 </table>
-
+<%= paginate @books %>
 <br>
 
 <%= link_to t('scaffold.new'), new_book_path %>
 <%= link_to t('.Reports'), reports_path %>
+<%= link_to t('users.index.Users'), users_path %>

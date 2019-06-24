@@ -19,6 +19,9 @@ ja:
       user:
         username: ユーザー名
         image: 画像
+        postal_code: 郵便番号
+        address: 住所
+        bio: 自己紹介
       book:
         title: タイトル
         memo: メモ
@@ -41,6 +44,11 @@ ja:
     destroy:
       destroyed: 無事削除されました。
   users:
+    index:
+      Users: ユーザー一覧
+    show:
+      Follow: フォローする
+      Unfollow: フォロー解除 
     registrations:
       new:
         sign_up: 新規アカウント登録
@@ -52,15 +60,28 @@ ja:
       Editing Book: 書籍編集画面
     new:
       New Book: 新規書籍登録画面
+  followings:
+    index:
+      followed: フォロー対象
+  followers:
+    index:
+      follower: フォロワー
   layouts:
     application:
       Logged in as:: 'ログインユーザー:'
       Edit Profile: プロフィール編集
       Logout: ログアウト
+      following: フォロー数
+      followers: フォロワー数
   comments:
     index:
       New Comment: 新規コメント登録 
       Comments: コメント一覧
     edit:
       Editing Comment: コメント編集
+  flash:
+    follow:
+      notice: フォローしました
+    unfollow:
+      notice: フォロー解除しました
 

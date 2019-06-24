@@ -1,0 +1,32 @@
+<h2 class="user_detail"><%= t('activerecord.attributes.user.username') %>:<%= @user.username %></h2>
+<div class="user_detail">
+  <% if @user.avatar_url %>
+    <img src="<%= @user.avatar_url %>" width="80" height="80">
+  <% else %>
+    <%= image_tag(@user.image.variant(resize:'80x80').processed)if @user.image.attached? %></h2>
+  <% end %></br>
+<%= link_to "#{t('layouts.application.following')}:#{@user.following.count}" , user_followings_path(@user) %>|
+      <%= link_to "#{t('layouts.application.followers')}:#{@user.followers.count}" , user_followers_path(@user) %>
+ <% if current_user != @user %>
+   <% unless current_user.following?(@user) %>
+     <%= form_for(current_user.active_relationships.build) do |f| %>
+       <div><%= hidden_field_tag :followed_id, @user.id %></div>
+       <%= f.submit t('.Follow') %>
+     <% end %>
+   <% else %>
+     <%= form_for(current_user.active_relationships.find_by(followed_id: @user.id), html: { method: :delete }) do |f| %>
+       <div><%= f.submit t('.Unfollow') %></div>
+     <% end %>
+   <% end %>
+<% end %>
+<% unless @user.avatar_url %>
+  <h2 class="user_detail"><%= t('activerecord.attributes.user.postal_code') %>:<%= @user.postal_code %></h2>
+  <h2 class="user_detail"><%= t('activerecord.attributes.user.address') %>:<%= @user.address %></h2>
+  <h2 class="user_detail"><%= t('activerecord.attributes.user.bio') %>:<%= @user.bio %></h2>
+<% end %>
+</div>
+</br>
+</br>
+<%= link_to t('users.index.Users'), users_path %>|
+<%= link_to t('books.index.Books'), books_path %>|
+<%= link_to t('reports.index.Reports'),reports_path %>

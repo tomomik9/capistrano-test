@@ -1,0 +1,14 @@
+<h1 class="users"><%= t('.Users')%></h1>
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= link_to "#{user.username}", user_path(user) %>
+     </li>
+  <% end %>
+</ul>
+</br>
+<br>
+<%= paginate @users %>
+<br>
+<%= link_to t('books.index.Books'), books_path %>|
+<%= link_to t('reports.index.Reports'),reports_path %>
