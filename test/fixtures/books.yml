@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  memo: MyText
+book1:
+ title: 本1
+ memo: ジャンルはホラー
+ author: 著書1
+book2:
+ title: 本2
+ memo: ジャンルはコメディ
+ author: 著書2
 
-two:
-  title: MyString
-  memo: MyText
