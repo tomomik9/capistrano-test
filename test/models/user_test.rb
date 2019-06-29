@@ -1,17 +1,37 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  # Validation Test
+  should validate_presence_of :password
+  should validate_presence_of :email
+  should validate_uniqueness_of :email
+ 
+  # OmniAuth Authentication Test
   setup do
-    @user = users(:keith)
+    @user = User.new({
+      :provider => 'github',
+      :uid => '123', 
+      :username => 'test',
+      :password => Devise.friendly_token[0, 20]
+     } )
   end
 
-  test 'user must be valid' do
-    assert @user.valid?
+  test 'authenticate an user' do
+    @user1 = User.where(provider: "github", uid: "123").first
+    assert_equal "test", @user1.username
   end
 
-  test 'must have email address' do
-    @user.email = nil
-    assert @user.invalid?
-    assert_includes @user.errors[:email], "を入力してください"
+  setup do
+    @user = OmniAuth::AuthHash.new({
+    :provider => 'github',
+    :uid => '123545',
+    :username => 'test2', 
+    :avatar_url => 'nnnnnnnnnnnn', 
+    :password => Devise.friendly_token[0, 20]
+})
+  end
+
+  test 'nyaonyao' do
+    assert_equal 'test2', @user[:username]
   end
 end

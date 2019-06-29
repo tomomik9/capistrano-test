@@ -8,10 +8,9 @@ class ReportTest < ActiveSupport::TestCase
   test 'report must be valid' do
     assert @report.valid?
   end
-
-  test 'must have title' do
-    @report.title = nil
-    assert @report.invalid?
-    assert_includes @report.errors[:title], "を入力してください"
+  
+  # Association
+  test '#comments' do
+    assert_equal 1, @report.comments.size
   end
 end

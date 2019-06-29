@@ -22,3 +22,10 @@ layla:
  bio: Rubyを学習中です！よろしく。
  postal_code: 130-0000
  address: 東京都
+test:
+ username: test
+ email: test@gmail.com
+ confirmed_at: <%= Time.now - 100 %>
+ uid: 123
+ provider: github
+ 

@@ -1,17 +1,17 @@
 require 'test_helper'
 
 class BookTest < ActiveSupport::TestCase
+  
   setup do
     @book = books(:book1)
-  end
+  end  
 
-  test 'user must be valid' do
-    assert @book.valid?
-  end
+  # Validation Tests
+  should validate_presence_of :title
+  should validate_presence_of :memo
 
-  test 'must have title' do
-    @book.title = nil
-    assert @book.invalid?
-    assert_includes @book.errors[:title], "を入力してください"
+  # Association
+  test '#comments' do
+    assert_equal 1, @book.comments.size
   end
 end

@@ -1,12 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: 1
   title: コメント1
   body: コメントは不明
   commentable: report1(Report)
-
 two:
   title: コメント2
   body: コメントは不明じゃない
   commentable: book1(Book)
+

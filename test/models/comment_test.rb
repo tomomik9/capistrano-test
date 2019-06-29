@@ -2,16 +2,20 @@ require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
   setup do
-    @comment = comments(:one)
+    @comment1 = comments(:one)
+    @comment2 = comments(:two)
+  end
+  
+  # Validation Tests
+  should validate_presence_of :title
+  should validate_presence_of :body
+
+  # Polymorphic Association 
+  test 'comment1' do
+    assert_equal 'Report', @comment1.commentable_type
   end
 
-  test 'report must be valid' do
-    assert @comment.valid?
-  end
-
-  test 'must have title' do
-    @comment.title = nil
-    assert @comment.invalid?
-    assert_includes @comment.errors[:title], "を入力してください"
+  test 'comment2' do
+    assert_equal 'Book', @comment2.commentable_type
   end
 end
