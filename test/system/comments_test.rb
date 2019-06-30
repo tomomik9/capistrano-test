@@ -1,10 +1,16 @@
 require "application_system_test_case"
 
 class CommentsTest < ApplicationSystemTestCase
-include Warden::Test::Helpers
+  include Warden::Test::Helpers
   def setup
     @user = users(:keith)
     @comment = comments(:one)
+  end
+
+  test "show listing comments" do
+    login_as(@user)
+    visit "/reports/#{@comment.commentable_id}/comments"
+    assert_selector "h1", text: "コメント一覧"
   end
 
   test "creating a comment" do

@@ -1,11 +1,16 @@
 require "application_system_test_case"
 
 class ReportsTest < ApplicationSystemTestCase
-include Warden::Test::Helpers
-
+  include Warden::Test::Helpers
   def setup
     @user = users(:keith)
     @report = reports(:report1)
+  end
+  
+  test "show listing reports" do
+    login_as(@user)
+    visit "/reports"
+    assert_selector "h1", text: "日報一覧"
   end
 
   test "creating a report record" do

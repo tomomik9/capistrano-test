@@ -1,14 +1,19 @@
 require "application_system_test_case"
 
 class BooksTest < ApplicationSystemTestCase
-include Warden::Test::Helpers
- 
+  include Warden::Test::Helpers
   def setup
     @user = users(:keith)
     @book = books(:book1)
   end
 
-  test "creating a book record" do
+  test "show listing books" do
+    login_as(@user)
+    visit "/books"
+    assert_selector "h1", text: "書籍一覧"
+  end
+
+  test "create a book record" do
     login_as(@user)
     visit new_book_path
     fill_in "タイトル", with: @book.title, match: :first
@@ -18,7 +23,7 @@ include Warden::Test::Helpers
     assert_text "無事登録されました"
   end
 
-  test "updating a book record" do
+  test "update a book record" do
     login_as(@user)
     visit "/books/#{@book.id}/edit"
     fill_in "タイトル", with: "本2",  match: :first
@@ -28,7 +33,7 @@ include Warden::Test::Helpers
     assert_text "無事更新されました"
   end
 
-  test "destroying a book record" do
+  test "destroy a book record" do
     login_as(@user)
     visit books_url
     page.accept_confirm do

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RelationshipTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  # Validation Tests
+  should validate_presence_of :follower_id
+  should validate_presence_of :followed_id
 end
