@@ -48,7 +48,7 @@ class UsersTest < ApplicationSystemTestCase
     assert_text "アカウントを削除しました。またのご利用をお待ちしております。"
   end
 
-  test "#logout" do
+  test "logout" do
     login_as(@user)
     visit reports_path
     click_on "ログアウト"

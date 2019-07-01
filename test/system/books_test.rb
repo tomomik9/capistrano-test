@@ -19,6 +19,7 @@ class BooksTest < ApplicationSystemTestCase
     fill_in "タイトル", with: @book.title, match: :first
     fill_in "メモ", with: @book.memo
     fill_in "著者", with: @book.author
+    fill_in "著者", with: @book.picture
     click_button "登録する"
     assert_text "無事登録されました"
   end

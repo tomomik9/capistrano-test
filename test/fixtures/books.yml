@@ -4,6 +4,7 @@ book1:
  title: 本1
  memo: ジャンルはホラー
  author: 著書1
+ picture: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/files/Ruby.jpg'))
 book2:
  title: 本2
  memo: ジャンルはコメディ

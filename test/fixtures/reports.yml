@@ -1,6 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 report1:
- title: 本日の学習
+ title: 本日の学習(2019/06/29)
  memo: Rubyの勉強
+report2:
+ title: 本日の学習(2019/06/30)
+ memo: Railsの勉強
 
