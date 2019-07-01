@@ -9,4 +9,5 @@ book2:
  title: 本2
  memo: ジャンルはコメディ
  author: 著書2
+ picture: Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/files/blue.jpg'))
 
