@@ -19,7 +19,7 @@ class BooksTest < ApplicationSystemTestCase
     fill_in "タイトル", with: @book.title, match: :first
     fill_in "メモ", with: @book.memo
     fill_in "著者", with: @book.author
-    fill_in "著者", with: @book.picture
+    attach_file("画像", "test/fixtures/files/Ruby.jpg")
     click_button "登録する"
     assert_text "無事登録されました"
   end

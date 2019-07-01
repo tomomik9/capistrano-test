@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # Validation Test
-  should validate_presence_of :password
-  should validate_presence_of :email
-  should validate_uniqueness_of :email
- 
   # OmniAuth Authentication Test
   setup do 
     @github_params1 = OmniAuth::AuthHash.new({

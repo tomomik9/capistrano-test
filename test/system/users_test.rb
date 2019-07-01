@@ -48,6 +48,30 @@ class UsersTest < ApplicationSystemTestCase
     assert_text "アカウントを削除しました。またのご利用をお待ちしております。"
   end
 
+  setup do
+    OmniAuth.config.test_mode = true
+    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
+      :provider => 'github',
+      :uid => '123545',
+      :info => {
+        :name => 'test',
+        :email => 'test@gmail.com',
+        :avatar_url => 'https://avatars3.githubusercontent.com/u/1...'
+      },
+      :password => Devise.friendly_token[0, 20]
+    })
+  end
+
+  teardown do
+    OmniAuth.config.test_mode = false
+  end
+
+  test "GitHub login" do
+    visit user_session_path
+    click_link "GitHubでログイン"
+    assert_text "Github アカウントによる認証に成功しました。"
+  end
+
   test "logout" do
     login_as(@user)
     visit reports_path
