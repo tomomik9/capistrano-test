@@ -13,7 +13,7 @@ class BooksTest < ApplicationSystemTestCase
     assert_selector "h1", text: "書籍一覧"
   end
 
-  test "create a book record" do
+  test "register a book" do
     login_as(@user)
     visit new_book_path
     fill_in "タイトル", with: @book.title, match: :first
@@ -24,7 +24,7 @@ class BooksTest < ApplicationSystemTestCase
     assert_text "無事登録されました"
   end
 
-  test "update a book record" do
+  test "update a book info" do
     login_as(@user)
     visit "/books/#{@book.id}/edit"
     fill_in "タイトル", with: "本2",  match: :first
@@ -34,7 +34,7 @@ class BooksTest < ApplicationSystemTestCase
     assert_text "無事更新されました"
   end
 
-  test "destroy a book record" do
+  test "destroy a book info" do
     login_as(@user)
     visit books_url
     page.accept_confirm do

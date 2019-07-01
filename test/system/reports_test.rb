@@ -13,7 +13,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "日報一覧"
   end
 
-  test "create a report record" do
+  test "register a report" do
     login_as(@user)
     visit new_report_path
     fill_in "日報タイトル", with: @report.title,  match: :first
@@ -22,7 +22,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "無事登録されました"
   end
 
-  test "update a report record" do
+  test "update a report" do
     login_as(@user)
     visit "/reports/#{@report.id}/edit"
     fill_in "日報タイトル", with: "本日の学習",  match: :first
@@ -31,7 +31,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text "無事更新されました"
   end
 
-  test "destroy a report record" do
+  test "destroy a report" do
     login_as(@user)
     visit reports_url
     page.accept_confirm do

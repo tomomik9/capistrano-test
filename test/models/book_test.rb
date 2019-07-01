@@ -14,8 +14,8 @@ class BookTest < ActiveSupport::TestCase
     assert_equal 1, @book.comments.size
   end
 
-  # Book Record Registration Test
-  test "book recod registration" do
+  # Registration Test
+  test "the book registration" do
     assert_difference 'Book.count', 1 do
       Book.create(title: @book.title,  memo: @book.memo, author: @book.author, picture: @book.picture)
     end

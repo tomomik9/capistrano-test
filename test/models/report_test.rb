@@ -14,8 +14,8 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal 1, @report.comments.size
   end
 
-  # Report Tests
-  test "the report" do
+  # Registration Test
+  test "the report registration" do
     assert_difference 'Report.count', 1 do
       Report.create(title: @report.title, memo: @report.memo)
     end
