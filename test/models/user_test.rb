@@ -53,4 +53,14 @@ class UserTest < ActiveSupport::TestCase
     @user1.unfollow(@user2)
     assert_not @user1.following?(@user2)
   end
+
+  test "user registrations and file upload" do
+    upload_file = Rack::Test::UploadedFile.new(File.join(Rails.root, 'test/fixtures/files/blue.jpg'))
+    assert_difference 'User.count', 1 do
+      User.create(username: "Lily",
+        email: "lily@gmail.com",
+        address: "unknown",
+        password: "Fxjifiv", image: upload_file, bio: "Hi!", postal_code: "111-1000" ).save!
+    end
+  end
 end
