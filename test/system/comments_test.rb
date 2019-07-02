@@ -1,45 +1,43 @@
 require "application_system_test_case"
 
 class CommentsTest < ApplicationSystemTestCase
-  setup do
+  include Warden::Test::Helpers
+  def setup
+    @user = users(:keith)
     @comment = comments(:one)
   end
 
-  test "visiting the index" do
-    visit comments_url
-    assert_selector "h1", text: "Comments"
+  test "show listing comments" do
+    login_as(@user)
+    visit "/reports/#{@comment.commentable_id}/comments"
+    assert_selector "h1", text: "コメント一覧"
   end
 
-  test "creating a Comment" do
-    visit comments_url
-    click_on "New Comment"
-
-    fill_in "Body", with: @comment.body
-    fill_in "Title", with: @comment.title
-    click_on "Create Comment"
-
-    assert_text "Comment was successfully created"
-    click_on "Back"
+  test "create a comment" do
+    login_as(@user)
+    visit "/reports/#{@comment.commentable_id}/comments"
+    click_link "新規コメント登録"
+    fill_in "コメント題名", with: "本1"
+    fill_in "コメント", with: "メモです。"
+    click_button "登録する"
+    assert_text "無事登録されました"
   end
 
-  test "updating a Comment" do
-    visit comments_url
-    click_on "Edit", match: :first
-
-    fill_in "Body", with: @comment.body
-    fill_in "Title", with: @comment.title
-    click_on "Update Comment"
-
-    assert_text "Comment was successfully updated"
-    click_on "Back"
+  test "update a comment" do
+    login_as(@user)
+    visit "/reports/#{@comment.commentable_id}/comments/#{@comment.id}/edit"
+    fill_in "コメント題名", with: "本2",  match: :first
+    fill_in "コメント", with: "ジャンルはコメディ"
+    click_button "更新する"
+    assert_text "無事更新されました"
   end
 
-  test "destroying a Comment" do
-    visit comments_url
+  test "destroy a comment" do
+    login_as(@user)
+    visit "/reports/#{@comment.commentable_id}/comments"
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_link "削除", match: :first
     end
-
-    assert_text "Comment was successfully destroyed"
+    assert_text "無事削除されました"
   end
 end

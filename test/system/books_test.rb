@@ -1,45 +1,45 @@
 require "application_system_test_case"
 
 class BooksTest < ApplicationSystemTestCase
-  setup do
-    @book = books(:one)
+  include Warden::Test::Helpers
+  def setup
+    @user = users(:keith)
+    @book = books(:book1)
   end
 
-  test "visiting the index" do
-    visit books_url
-    assert_selector "h1", text: "Books"
+  test "show listing books" do
+    login_as(@user)
+    visit "/books"
+    assert_selector "h1", text: "書籍一覧"
   end
 
-  test "creating a Book" do
-    visit books_url
-    click_on "New Book"
-
-    fill_in "Memo", with: @book.memo
-    fill_in "Title", with: @book.title
-    click_on "Create Book"
-
-    assert_text "Book was successfully created"
-    click_on "Back"
+  test "register a book" do
+    login_as(@user)
+    visit new_book_path
+    fill_in "タイトル", with: @book.title, match: :first
+    fill_in "メモ", with: @book.memo
+    fill_in "著者", with: @book.author
+    attach_file("画像", "test/fixtures/files/Ruby.jpg")
+    click_button "登録する"
+    assert_text "無事登録されました"
   end
 
-  test "updating a Book" do
-    visit books_url
-    click_on "Edit", match: :first
-
-    fill_in "Memo", with: @book.memo
-    fill_in "Title", with: @book.title
-    click_on "Update Book"
-
-    assert_text "Book was successfully updated"
-    click_on "Back"
+  test "update a book info" do
+    login_as(@user)
+    visit "/books/#{@book.id}/edit"
+    fill_in "タイトル", with: "本2",  match: :first
+    fill_in "メモ", with: "ジャンルはコメディ"
+    fill_in "著者", with: "猫"
+    click_button "更新する"
+    assert_text "無事更新されました"
   end
 
-  test "destroying a Book" do
+  test "destroy a book info" do
+    login_as(@user)
     visit books_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_link "削除", match: :first
     end
-
-    assert_text "Book was successfully destroyed"
+    assert_text "無事削除されました"
   end
 end

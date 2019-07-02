@@ -25,7 +25,7 @@ ja:
       book:
         title: タイトル
         memo: メモ
-        author: 著書
+        author: 著者
         picture: 画像
       comment:
         title: コメント題名

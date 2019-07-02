@@ -1,45 +1,42 @@
 require "application_system_test_case"
 
 class ReportsTest < ApplicationSystemTestCase
-  setup do
-    @report = reports(:one)
+  include Warden::Test::Helpers
+  def setup
+    @user = users(:keith)
+    @report = reports(:report1)
+  end
+  
+  test "show listing reports" do
+    login_as(@user)
+    visit "/reports"
+    assert_selector "h1", text: "日報一覧"
   end
 
-  test "visiting the index" do
-    visit reports_url
-    assert_selector "h1", text: "Reports"
+  test "register a report" do
+    login_as(@user)
+    visit new_report_path
+    fill_in "日報タイトル", with: @report.title,  match: :first
+    fill_in "内容", with: @report.memo
+    click_button "登録する"
+    assert_text "無事登録されました"
   end
 
-  test "creating a Report" do
-    visit reports_url
-    click_on "New Report"
-
-    fill_in "Memo", with: @report.memo
-    fill_in "Title", with: @report.title
-    click_on "Create Report"
-
-    assert_text "Report was successfully created"
-    click_on "Back"
+  test "update a report" do
+    login_as(@user)
+    visit "/reports/#{@report.id}/edit"
+    fill_in "日報タイトル", with: "本日の学習",  match: :first
+    fill_in "内容", with: "httpの学習"
+    click_button "更新する"
+    assert_text "無事更新されました"
   end
 
-  test "updating a Report" do
-    visit reports_url
-    click_on "Edit", match: :first
-
-    fill_in "Memo", with: @report.memo
-    fill_in "Title", with: @report.title
-    click_on "Update Report"
-
-    assert_text "Report was successfully updated"
-    click_on "Back"
-  end
-
-  test "destroying a Report" do
+  test "destroy a report" do
+    login_as(@user)
     visit reports_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_link "削除", match: :first
     end
-
-    assert_text "Report was successfully destroyed"
+    assert_text "無事削除されました"
   end
 end
