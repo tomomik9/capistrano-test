@@ -60,13 +60,13 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'rails-i18n'
-gem 'devise'
-gem 'devise-i18n'
 group :development do #開発環境のみ
   gem 'letter_opener_web'
 end
-gem 'rails-erd', group: [:development, :test]
+gem 'rails-erd', group: [:development, :test, :production]
+gem 'rails-i18n'
+gem 'devise'
+gem 'devise-i18n'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'dotenv-rails'
@@ -74,3 +74,31 @@ gem 'mini_magick'
 gem 'carrierwave'
 gem 'kaminari'
 gem 'kaminari-i18n'
+group :deployment do
+  # 本体
+  gem 'capistrano', '~> 3.11.0', require: false 
+
+  # bundler系のtaskをまとめてくれてるやつ
+  # bundle installとかを高度にcapistrano内でうまくやってくれる
+  # https://github.com/capistrano/bundler
+  gem 'capistrano-bundler', '~> 1.4.0', require: false
+
+    # rails系のtaskをまとめてくれてるやつ
+  # 例えば、migration, assets系のやつ 
+  # https://github.com/capistrano/rails
+  gem 'capistrano-rails', '~> 1.4.0', require: false
+
+  # rbenv系のtaskをまとめてくれるやつ
+  # rubyのversionもちゃんと指定しよう！
+  # https://github.com/capistrano/rbenv
+  gem 'capistrano-rbenv', '~> 2.1.4', require: false
+  gem 'sshkit-sudo', '~> 0.1.0', require: false
+
+  # puma系のtaskをまとめてくれるやつ
+  # unicorn使ってたら他のやつ使ってね
+  # https://github.com/seuros/capistrano-puma
+  gem 'capistrano3-puma', '~> 3.1.1', require: false
+end
+gem 'ed25519'
+gem 'bcrypt_pbkdf'
+
