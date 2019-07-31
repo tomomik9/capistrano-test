@@ -1,28 +1,30 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.11.0"
 
-# アプリ名
-set :application, "BookApp"
-set :repo_url, "git@github.com:tomomik9/capistrano-test.git"
-set :user, "tomomik9"
-
-# デプロイ先のパス
-set :deploy_to, "/home/tomomik9/Deploy/"
-
-# ログ関係の設定（ 詳しくはこちら -> https://qiita.com/hirokishirai/items/50b319133f19f20382f4 )
-set :format, :airbrussh
-set :format_options, command_output: true, log_file: "log/capistrano.log", color: :true, truncate: :false
-
-# Sudoするために必要な設定 ( 詳しくはこちら -> https://qiita.com/kasei-san/items/3edb52359ff288d2f435 )
-set :pty, true
-
-# リリースをどこまで残すか
+# レポジトリ設定
+set :repo_url, 'git@github.com:tomomik9/capistrano-test.git'
+# シンボリックリンクにするディレクトリ
+set :linked_dirs, fetch(:linked_dirs, []).push('log')
+# デプロイ先でのソースのバージョンの保持数
 set :keep_releases, 5
+set :pty,             true
+set :use_sudo,        false
+
+set :application,     "Deploy"
+set :user,            "tomomik9"
+set :ssh_options,     {
+  forward_agent: true,
+  user: fetch(:user),
+  keys: %w(~/.ssh/id_rsa)
+}
+
+set :deploy_to,       "/home/tomomik9/#{fetch(:application)}"
+set :deploy_via,      :remote_cache
 
 # puma の設定
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
-set :puma_bind,       "unix://#{shared_path}/tmp/sockets/puma.sock"
+set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
 set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
 set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
 set :puma_access_log, "#{release_path}/log/puma.access.log"
@@ -51,10 +53,9 @@ set :linked_dirs, fetch(:linked_dirs, []).push(
 # シンボリックリンク貼る系（file）
 set :linked_files, fetch(:linked_files, []).push(
   'config/database.yml',
-  'config/credentials.yml.enc',
+  'config/master.key',
   '.env'
 )
-
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
@@ -86,8 +87,7 @@ namespace :deploy do
       invoke 'deploy'
     end
   end
-
-  desc 'Restart application'
+desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       invoke 'puma:restart'
@@ -98,26 +98,14 @@ namespace :deploy do
   task :upload do
     on roles(:app) do |host|
       if test "[ ! -d #{shared_path}/config ]"
-        execute "mkdir #{shared_path}/config -p"
+        execute "mkdir -p #{shared_path}/config"
       end
-      upload!('config/credentials.yml.enc', "#{shared_path}/config/credentials.yml.enc")
+      upload!('config/database.yml', "#{shared_path}/config/database.yml")
+      upload!('config/secrets.yml', "#{shared_path}/config/secrets.yml")
     end
   end
 
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
-
-  desc 'setup nginx'
-  task :nginx do
-    on roles(:app) do |host|
-      # 後ほど作成するnginxのファイル名を記述してください
-      %w[BookApp.conf].each do |f|
-        upload! "config/#{f}", "#{shared_path}/config/#{f}"
-        sudo :cp, "#{shared_path}/config/#{f}", "/etc/nginx/conf.d/#{f}"
-        sudo "nginx -s reload"
-      end
-    end
-  end
 end
-

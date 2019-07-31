@@ -101,4 +101,3 @@ group :deployment do
 end
 gem 'ed25519'
 gem 'bcrypt_pbkdf'
-

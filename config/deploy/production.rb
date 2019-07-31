@@ -21,20 +21,6 @@
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
-# デプロイに使用するbranch
-set :branch, 'master'
-
-# デプロイ先のip
-server '133.167.89.124',
-  user: 'tomomik9',
-  roles: %w[web app db],
-  port: 50000,
-  ssh_options: {
-    user: 'tomomik9',
-    keys: [File.expand_path('~/.ssh/id_rsa')],
-    forward_agent: true,
-}
-
 
 
 # Configuration
@@ -44,6 +30,13 @@ server '133.167.89.124',
 # For available Capistrano configuration variables see the documentation page.
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
+
+role :app, %w{tomomik9@133.167.89.124:50000}
+set :ssh_options, {
+  port: "50000",
+  forward_agent: true,
+  keys: ['~/.ssh/id_rsa']
+}
 
 
 
